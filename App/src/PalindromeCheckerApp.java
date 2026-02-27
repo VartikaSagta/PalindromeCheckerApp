@@ -26,4 +26,37 @@ public class PalindromeCheckerApp {
 
         System.out.println("==========================================");
     }
+}git checkout main// Hardcoded string
+        String input = "level";
+
+        System.out.println("==========================================");
+        System.out.println("Use Case 4 - Character Array Palindrome Check");
+        System.out.println("Input String : " + input);
+
+        // Convert string to character array
+        char[] characters = input.toCharArray();
+
+        int start = 0;
+        int end = characters.length - 1;
+        boolean isPalindrome = true;
+
+        // Two-pointer comparison
+        while (start < end) {
+            if (characters[start] != characters[end]) {
+                isPalindrome = false;
+                break;
+            }
+            start++;
+            end--;
+        }
+
+        // Display result
+        if (isPalindrome) {
+            System.out.println("Result : The string is a Palindrome.");
+        } else {
+            System.out.println("Result : The string is NOT a Palindrome.");
+        }
+
+        System.out.println("==========================================");
+    }
 }
