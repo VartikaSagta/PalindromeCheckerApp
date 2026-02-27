@@ -2,52 +2,27 @@ import java.util.Stack;
 public class PalindromeCheckerApp {
     public static void main(String[] args) {
 
-        String input = "racecar";
+        String input = "madam";
 
         System.out.println("==========================================");
-        System.out.println("Use Case 3 - Reverse String Palindrome Check");
+        System.out.println("Use Case 5 - Stack Based Palindrome Check");
         System.out.println("Input String : " + input);
 
-        // Build reversed string
-        String reversed = "";
+        Stack<Character> stack = new Stack<>();
 
-        for (int i = input.length() - 1; i >= 0; i--) {
-            reversed += input.charAt(i);
+        // Push all characters into stack
+        for (int i = 0; i < input.length(); i++) {
+            stack.push(input.charAt(i));
         }
 
-        System.out.println("Reversed String : " + reversed);
-
-        // Compare original and reversed
-        if (input.equalsIgnoreCase(reversed)) {
-            System.out.println("Result : The string is a Palindrome.");
-        } else {
-            System.out.println("Result : The string is NOT a Palindrome.");
-        }
-
-        System.out.println("==========================================");
-    }
-}git checkout main// Hardcoded string
-        String input = "level";
-
-        System.out.println("==========================================");
-        System.out.println("Use Case 4 - Character Array Palindrome Check");
-        System.out.println("Input String : " + input);
-
-        // Convert string to character array
-        char[] characters = input.toCharArray();
-
-        int start = 0;
-        int end = characters.length - 1;
         boolean isPalindrome = true;
 
-        // Two-pointer comparison
-        while (start < end) {
-            if (characters[start] != characters[end]) {
+        // Compare original string with popped characters
+        for (int i = 0; i < input.length(); i++) {
+            if (input.charAt(i) != stack.pop()) {
                 isPalindrome = false;
                 break;
             }
-            start++;
-            end--;
         }
 
         // Display result
