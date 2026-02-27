@@ -2,29 +2,23 @@ import java.util.Stack;
 public class PalindromeCheckerApp {
     public static void main(String[] args) {
 
-        String input = "madam";
+        String input = "racecar";
 
         System.out.println("==========================================");
-        System.out.println("Use Case 2 - Hardcoded Palindrome Check");
+        System.out.println("Use Case 3 - Reverse String Palindrome Check");
         System.out.println("Input String : " + input);
 
-        boolean isPalindrome = true;
+        // Build reversed string
+        String reversed = "";
 
-        int left = 0;
-        int right = input.length() - 1;
-
-        // Compare characters from both ends
-        while (left < right) {
-            if (input.charAt(left) != input.charAt(right)) {
-                isPalindrome = false;
-                break;
-            }
-            left++;
-            right--;
+        for (int i = input.length() - 1; i >= 0; i--) {
+            reversed += input.charAt(i);
         }
 
-        // Display result
-        if (isPalindrome) {
+        System.out.println("Reversed String : " + reversed);
+
+        // Compare original and reversed
+        if (input.equalsIgnoreCase(reversed)) {
             System.out.println("Result : The string is a Palindrome.");
         } else {
             System.out.println("Result : The string is NOT a Palindrome.");
