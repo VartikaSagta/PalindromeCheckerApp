@@ -2,22 +2,18 @@ import java.util.Stack;
 public class PalindromeCheckerApp {
     public static void main(String[] args) {
 
-          String input = "A man a plan a canal Panama";
+          String input = "Madam";
 
         System.out.println("==========================================");
-        System.out.println("Use Case 10 - Normalized Palindrome Check");
-        System.out.println("Original Input : " + input);
+        System.out.println("Use Case 11 - OOP Palindrome Check");
+        System.out.println("Input String : " + input);
 
-        // Normalize the string
-        String normalized = input
-                .replaceAll("[^a-zA-Z0-9]", "")  // Remove spaces & symbols
-                .toLowerCase();                  // Convert to lowercase
+        // Create service object
+        PalindromeService service = new PalindromeService();
 
-        System.out.println("Normalized Input : " + normalized);
+        boolean result = service.isPalindrome(input);
 
-        boolean isPalindrome = checkPalindrome(normalized);
-
-        if (isPalindrome) {
+        if (result) {
             System.out.println("Result : The string is a Palindrome.");
         } else {
             System.out.println("Result : The string is NOT a Palindrome.");
@@ -25,20 +21,31 @@ public class PalindromeCheckerApp {
 
         System.out.println("==========================================");
     }
+}
+
+/**
+ * Service class that contains palindrome logic.
+ */
+class PalindromeService {
 
     /**
-     * Checks palindrome using two-pointer technique.
+     * Checks whether the input string is a palindrome.
      *
-     * @param s Normalized string
+     * @param input Input string
      * @return true if palindrome, otherwise false
      */
-    private static boolean checkPalindrome(String s) {
+    public boolean isPalindrome(String input) {
+
+        // Normalize input
+        String normalized = input
+                .replaceAll("[^a-zA-Z0-9]", "")
+                .toLowerCase();
 
         int left = 0;
-        int right = s.length() - 1;
+        int right = normalized.length() - 1;
 
         while (left < right) {
-            if (s.charAt(left) != s.charAt(right)) {
+            if (normalized.charAt(left) != normalized.charAt(right)) {
                 return false;
             }
             left++;
