@@ -2,28 +2,27 @@ import java.util.Stack;
 public class PalindromeCheckerApp {
     public static void main(String[] args) {
 
-         // Hardcoded string
-        String input = "refer";
+         String input = "civic";
 
         System.out.println("==========================================");
-        System.out.println("Use Case 7 - Deque Based Palindrome Check");
+        System.out.println("Use Case 8 - LinkedList Based Palindrome Check");
         System.out.println("Input String : " + input);
 
-        Deque<Character> deque = new ArrayDeque<>();
+        LinkedList<Character> list = new LinkedList<>();
 
-        // Insert characters into deque
+        // Add characters to LinkedList
         for (int i = 0; i < input.length(); i++) {
-            deque.addLast(input.charAt(i));
+            list.add(input.charAt(i));
         }
 
         boolean isPalindrome = true;
 
-        // Compare from both ends
-        while (deque.size() > 1) {
-            char front = deque.removeFirst();
-            char rear = deque.removeLast();
+        // Compare elements from both ends
+        while (list.size() > 1) {
+            char first = list.removeFirst();
+            char last = list.removeLast();
 
-            if (front != rear) {
+            if (first != last) {
                 isPalindrome = false;
                 break;
             }
