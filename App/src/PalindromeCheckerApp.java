@@ -2,13 +2,20 @@ import java.util.Stack;
 public class PalindromeCheckerApp {
     public static void main(String[] args) {
 
-          String input = "rotator";
+          String input = "A man a plan a canal Panama";
 
         System.out.println("==========================================");
-        System.out.println("Use Case 9 - Recursive Palindrome Check");
-        System.out.println("Input String : " + input);
+        System.out.println("Use Case 10 - Normalized Palindrome Check");
+        System.out.println("Original Input : " + input);
 
-        boolean isPalindrome = check(input, 0, input.length() - 1);
+        // Normalize the string
+        String normalized = input
+                .replaceAll("[^a-zA-Z0-9]", "")  // Remove spaces & symbols
+                .toLowerCase();                  // Convert to lowercase
+
+        System.out.println("Normalized Input : " + normalized);
+
+        boolean isPalindrome = checkPalindrome(normalized);
 
         if (isPalindrome) {
             System.out.println("Result : The string is a Palindrome.");
@@ -20,26 +27,24 @@ public class PalindromeCheckerApp {
     }
 
     /**
-     * Recursively checks whether a string is palindrome.
+     * Checks palindrome using two-pointer technique.
      *
-     * @param s     Input string
-     * @param start Starting index
-     * @param end   Ending index
+     * @param s Normalized string
      * @return true if palindrome, otherwise false
      */
-    private static boolean check(String s, int start, int end) {
+    private static boolean checkPalindrome(String s) {
 
-        // Base Case: If start >= end, all characters matched
-        if (start >= end) {
-            return true;
+        int left = 0;
+        int right = s.length() - 1;
+
+        while (left < right) {
+            if (s.charAt(left) != s.charAt(right)) {
+                return false;
+            }
+            left++;
+            right--;
         }
 
-        // If characters don't match, not a palindrome
-        if (s.charAt(start) != s.charAt(end)) {
-            return false;
-        }
-
-        // Recursive call moving inward
-        return check(s, start + 1, end - 1);
+        return true;
     }
 }
