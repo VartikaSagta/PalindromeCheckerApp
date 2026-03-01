@@ -2,120 +2,45 @@ import java.util.Stack;
 public class PalindromeCheckerApp {
     public static void main(String[] args) {
 
-          String input = "Madam";
+          String normalized = input.replaceAll("[^a-zA-Z0-9]", "")
+                                 .toLowerCase();
 
         System.out.println("==========================================");
-        System.out.println("Use Case 11 - OOP Palindrome Check");
-        System.out.println("Input String : " + input);
+        System.out.println("Use Case 13 - Performance Comparison");
+        System.out.println("Input : " + normalized);
 
-        // Create service object
-        PalindromeService service = new PalindromeService();
+        // Benchmark Two Pointer Strategy
+        long start1 = System.nanoTime();
+        boolean result1 = twoPointerCheck(normalized);
+        long end1 = System.nanoTime();
+        long duration1 = end1 - start1;
 
-        boolean result = service.isPalindrome(input);
+        // Benchmark Stack Strategy
+        long start2 = System.nanoTime();
+        boolean result2 = stackCheck(normalized);
+        long end2 = System.nanoTime();
+        long duration2 = end2 - start2;
 
-        if (result) {
-            System.out.println("Result : The string is a Palindrome.");
-        } else {
-            System.out.println("Result : The string is NOT a Palindrome.");
-        }
+        // Display Results
+        System.out.println("\nTwo Pointer Result : " + result1);
+        System.out.println("Execution Time (ns): " + duration1);
+
+        System.out.println("\nStack Strategy Result : " + result2);
+        System.out.println("Execution Time (ns): " + duration2);
 
         System.out.println("==========================================");
     }
-}
-
-/**
- * Service class that contains palindrome logic.
- */
-class PalindromeService {
 
     /**
-     * Checks whether the input string is a palindrome.
-     *
-     * @param input Input string
-     * @return true if palindrome, otherwise false
+     * Two Pointer Palindrome Check
      */
-    public boolean isPalindrome(String input) {
-
-        String input = "level";
-
-        System.out.println("==========================================");
-        System.out.println("Use Case 12 - Strategy Pattern Palindrome");
-        System.out.println("Input String : " + input);
-
-        // Choose strategy at runtime
-        PalindromeStrategy strategy = new StackStrategy();
-        // You can switch to:
-        // PalindromeStrategy strategy = new TwoPointerStrategy();
-
-        PalindromeContext context = new PalindromeContext(strategy);
-
-        boolean result = context.executeStrategy(input);
-
-        if (result) {
-            System.out.println("Result : The string is a Palindrome.");
-        } else {
-            System.out.println("Result : The string is NOT a Palindrome.");
-        }
-
-        System.out.println("==========================================");
-    }
-}
-
-/**
- * ============================================================
- * INTERFACE - PalindromeStrategy
- * ============================================================
- * Defines contract for all palindrome algorithms.
- */
-interface PalindromeStrategy {
-    boolean isPalindrome(String input);
-}
-
-/**
- * ============================================================
- * CLASS - StackStrategy
- * ============================================================
- * Stack-based palindrome implementation.
- */
-import java.util.Stack;
-
-class StackStrategy implements PalindromeStrategy {
-
-    @Override
-    public boolean isPalindrome(String input) {
-
-        Stack<Character> stack = new Stack<>();
-
-        for (char ch : input.toCharArray()) {
-            stack.push(ch);
-        }
-
-        for (char ch : input.toCharArray()) {
-            if (ch != stack.pop()) {
-                return false;
-            }
-        }
-
-        return true;
-    }
-}
-
-/**
- * ============================================================
- * CLASS - TwoPointerStrategy
- * ============================================================
- * Two-pointer palindrome implementation.
- */
-class TwoPointerStrategy implements PalindromeStrategy {
-
-    @Override
-    public boolean isPalindrome(String input) {
+    private static boolean twoPointerCheck(String s) {
 
         int left = 0;
-        int right = input.length() - 1;
+        int right = s.length() - 1;
 
         while (left < right) {
-            if (input.charAt(left) != input.charAt(right)) {
+            if (s.charAt(left) != s.charAt(right)) {
                 return false;
             }
             left++;
@@ -124,23 +49,24 @@ class TwoPointerStrategy implements PalindromeStrategy {
 
         return true;
     }
-}
 
-/**
- * ============================================================
- * CONTEXT CLASS
- * ============================================================
- * Uses selected strategy.
- */
-class PalindromeContext {
+    /**
+     * Stack Based Palindrome Check
+     */
+    private static boolean stackCheck(String s) {
 
-    private PalindromeStrategy strategy;
+        Stack<Character> stack = new Stack<>();
 
-    public PalindromeContext(PalindromeStrategy strategy) {
-        this.strategy = strategy;
-    }
+        for (char ch : s.toCharArray()) {
+            stack.push(ch);
+        }
 
-    public boolean executeStrategy(String input) {
-        return strategy.isPalindrome(input);
+        for (char ch : s.toCharArray()) {
+            if (ch != stack.pop()) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }
